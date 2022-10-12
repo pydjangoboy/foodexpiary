@@ -23,17 +23,15 @@
             <h5 class="page-header"><a href="{% url 'item_list' %}">Home</a> >> Search </h5>
 
             <div class="container-fluid">
-
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        data-bs-whatever="@mdo">
-                    Add More Items
-                </button>
-
                 <form action="" method="GET" class="d-flex">
                     <input class="form-control me-2" type="search" name="q" value="{{ request.GET.q }}"
                            placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" value="Search" type="submit">Search</button>
                 </form>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        data-bs-whatever="@mdo">
+                    Add More Items
+                </button>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -45,12 +43,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {% include 'add_items.html' %}
+                            {% include 'create_items.html' %}
                         </div>
 
                     </div>
                 </div>
             </div>
+
         </nav>
     </div>
 
