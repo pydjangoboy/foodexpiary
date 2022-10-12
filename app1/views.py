@@ -25,29 +25,6 @@ def list_item(request):
     return render(request, 'home.html', context)
 
 
-# def search(request):
-#     queryset_list = Item.objects.all()
-#     query = request.GET.get("query")
-#     if query:
-#         queryset_list = queryset_list.filter(
-#             Q(food_type__icontains=query) |
-#             Q(food_title__icontains=query) |
-#             Q(user__firstName__icontains=query) |
-#             Q(user__lastName__icontains=query) |
-#             Q(author__user__last_name__icontains=query)
-#
-#         ).distinct()
-#         if query and queryset_list:
-#             messages.success(request, "Search Post found '%s' ...!!!" % (query))
-#         else:
-#             messages.warning(request, "Search Post Not found '%s' ...!!!" % (query),
-#                              "search another post...???")
-#     context = {
-#         "queryset_list": queryset_list
-#     }
-#
-#     return render(request, 'home.html', context)
-
 def search(request):
     items = Item.objects.order_by('-timestamp')
     if request.method == 'POST':
