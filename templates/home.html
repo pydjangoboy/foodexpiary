@@ -75,29 +75,29 @@
 
             {% for item in items %}
                 <tr>
-                <td><img src="{{ item.photos.url }}" class="img" alt=""></td>
-                <td>{{ item.food_type }}</td>
-                <td>{{ item.food_title }} </td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.valid_from }}</td>
-                <td>{{ item.valid_to }}</td>
+                    <td><img src="{{ item.photos.url }}" class="img" alt=""></td>
+                    <td>{{ item.food_type }}</td>
+                    <td>{{ item.food_title }} </td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.valid_from }}</td>
+                    <td>{{ item.valid_to }}</td>
 
-                {% if item.valid_from < item.valid_to %}
-                    <td class="text-success">Good</td>
-                {% elif item.valid_from <= item.valid_to %}
-                    <td class="text-warning">Warning</td>
-                {% else %}
-                    <td class="text-danger">Expired</td>
-                {% endif %}
+                    {% if item.valid_to > item.timestamp.date.today %}
+                        <td class="text-success">Good</td>
+                    {% elif item.valid_to >= item.timestamp.date.today %}
+                        <td class="text-warning">Warning</td>
+                    {% else %}
+                        <td class="text-danger">Expired</td>
+                    {% endif %}
 
-                <td>
-                    <button type="button" class="btn btn-outline-primary">Edit</button>
-                    <button type="button" class="btn btn-outline-danger">Delete</button>
-                </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary">Edit</button>
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </td>
 
-            {% empty %}
-                 <tr>
+                    {% empty %}
+                <tr>
                     <td colspan="12" class="text-center bg-warning">No data...!!!</td>
                 </tr>
             {% endfor %}
