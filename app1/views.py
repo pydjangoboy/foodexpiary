@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from app1.forms import ItemForm
@@ -15,6 +16,7 @@ def list_item(request):
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Successfully Item added...!!!")
             return redirect('item_list')
     else:
         form = ItemForm()
@@ -23,6 +25,37 @@ def list_item(request):
         'form': form,
     }
     return render(request, 'home.html', context)
+
+
+# def item_update(request, id):
+#     item = Item.objects.get(id=id)
+#     form = ItemForm(request.POST, instance=item)
+#     if form.is_valid():
+#         form.save()
+#         return redirect("/home")
+#     return render(request, 'update_item.html', {'item': item})
+#
+
+# update view for details
+def item_update(request, pk):
+    context = {}
+    obj = get_object_or_404(Item, pk=pk)
+    form = ItemForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Successfully updated item ...!!!")
+        return redirect('item_list')
+    context["form"] = form
+    return render(request, "update_item.html", context)
+
+
+def item_delete(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    if request.method == 'POST':
+        item.delete()
+        messages.success(request, "Successfully deleted item ...!!!")
+        return redirect('item_list')
+    return render(request, 'delete_item.html', {'object': item})
 
 
 def search(request):

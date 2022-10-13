@@ -3,11 +3,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from app1.views import list_item, search
+from app1.views import list_item, search, item_update, item_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', list_item, name='item_list'),
+    path('edit/<int:pk>', item_update, name='item_update'),
+    path('delete/<int:pk>', item_delete, name='item_delete'),
     path('search/', search, name='search'),
 
 ]
