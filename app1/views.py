@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,7 +10,7 @@ from app1.models import Item
 
 
 # Create your views here.
-
+@login_required
 def list_item(request):
     items = Item.objects.order_by('-timestamp')
     if request.method == 'POST':
@@ -27,20 +28,12 @@ def list_item(request):
     return render(request, 'home.html', context)
 
 
-# def item_update(request, id):
-#     item = Item.objects.get(id=id)
-#     form = ItemForm(request.POST, instance=item)
-#     if form.is_valid():
-#         form.save()
-#         return redirect("/home")
-#     return render(request, 'update_item.html', {'item': item})
-#
-
 # update view for details
+@login_required
 def item_update(request, pk):
     context = {}
     obj = get_object_or_404(Item, pk=pk)
-    form = ItemForm(request.POST or None, instance=obj)
+    form = ItemForm(request.POST or None, request.FILES, instance=obj)
     if form.is_valid():
         form.save()
         messages.success(request, "Successfully updated item ...!!!")

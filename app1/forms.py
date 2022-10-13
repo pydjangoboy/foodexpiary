@@ -6,7 +6,6 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = '__all__'
-        exclude = ['user']
 
     def __init__(self, *args, **kwargs):
         super(ItemForm, self).__init__(*args, **kwargs)

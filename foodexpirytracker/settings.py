@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'app1.apps.App1Config',
     'crispy_forms',
     'widget_tweaks',
+    'accounts',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -139,3 +141,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# this is login or logout redirect url
+LOGIN_REDIRECT_URL = 'item_list'
+LOGOUT_REDIRECT_URL = 'item_list'
+
+# for password rest console based preview reset password link
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

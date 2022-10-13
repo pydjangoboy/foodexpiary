@@ -12,9 +12,27 @@
             </ul>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                {% if user.is_authenticated %}
+                    <!-- Example single danger button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                             Hi, {{ user.username|capfirst }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile_update' %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Change password</a></li>
+
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary me-2">Login</a>
+                    <a href="{% url 'signup' %}" class="btn btn-warning ">Sign-up</a>
+                {% endif %}
             </div>
+
+
         </div>
     </div>
 </header>
