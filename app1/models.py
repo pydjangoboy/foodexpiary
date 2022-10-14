@@ -1,8 +1,23 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from accounts.models import Profile
+from PIL import Image
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='avatar.png', upload_to='profile_pic')
+
+    def __str__(self):
+        return f'{self.user.username}'
+
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 class Item(models.Model):
     STATUS_CHOICES1 = (
@@ -12,8 +27,7 @@ class Item(models.Model):
         ('meat', 'meat'),
         ('fruits', 'fruits'),
     )
-
-    author = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     food_type = models.CharField(max_length=100, choices=STATUS_CHOICES1)
     food_title = models.CharField(max_length=120)
     photos = models.ImageField(upload_to='uploaded_images/')

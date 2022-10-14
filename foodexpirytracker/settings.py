@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'app1.apps.App1Config',
     'crispy_forms',
     'widget_tweaks',
-    'accounts',
 
 ]
 

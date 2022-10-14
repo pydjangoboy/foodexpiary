@@ -1,5 +1,7 @@
-from app1.models import Item
+from django.contrib.auth.forms import UserCreationForm
+from app1.models import Item, Profile
 from django import forms
+from django.contrib.auth.models import User
 
 
 class ItemForm(forms.ModelForm):
@@ -11,8 +13,24 @@ class ItemForm(forms.ModelForm):
         super(ItemForm, self).__init__(*args, **kwargs)
         self.fields['valid_from'].help_text = "Date Should Be like this -> yyyy-mm-dd --> 2022-10-09"
 
-    # valid_from = forms.DateField(
-    #     widget=SelectDateWidget(
-    #         empty_label=("Choose Year", "Choose Month", "Choose Day"),
-    #     ),
-    # )
+
+class SignUpForm(UserCreationForm):
+    email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2',)
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('image',)

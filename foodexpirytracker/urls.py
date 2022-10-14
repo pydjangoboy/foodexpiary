@@ -4,9 +4,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from accounts import views as accounts_views
-from accounts.views import profile
-from app1.views import list_item, search, item_update, item_delete
+from app1 import views as accounts_views
+from app1.views import list_item, search, item_update, item_delete, profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),

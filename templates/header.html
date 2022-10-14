@@ -17,9 +17,10 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                             Hi, {{ user.username|capfirst }}
+                            Hi, {{ user.username|capfirst }}
                         </button>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'item_list' %}">Home</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
                             <li><a class="dropdown-item" href="{% url 'profile_update' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'password_change' %}">Change password</a></li>
