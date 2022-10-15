@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from app1.forms import ItemForm
-from app1.models import Item
+from app1.models import Item, Profile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -11,12 +12,16 @@ from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 # Create your views here.
 @login_required
 def list_item(request):
-    items = Item.objects.order_by('-timestamp')
-
+    items = Item.objects.filter(author=request.user.id).order_by('-timestamp')
+    # data  = Item.objects.filter(author=request.user.id)
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)  # Return an object without saving to the DB
+            obj.author = Profile.objects.get(
+                id=request.user.id)  # Add an author field which will contain current user's id
+            obj.save()  #
+
             messages.success(request, "Successfully Item added...!!!")
             return redirect('item_list')
     else:
@@ -31,10 +36,10 @@ def list_item(request):
 
 @login_required
 def item_update(request, pk):
-    data = get_object_or_404(Item, pk=pk)
+    data = get_object_or_404(Item, pk=pk, author=request.user.id)
     form = ItemForm(instance=data)
     if request.method == "POST":
-        form = ItemForm(request.POST, instance=data)
+        form = ItemForm(request.POST, request.FILES, instance=data)
         if form.is_valid():
             form.save()
             messages.success(request, "Successfully updated item ...!!!")

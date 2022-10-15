@@ -1,3 +1,5 @@
+import profile
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -18,6 +20,7 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
 
 class Item(models.Model):
     STATUS_CHOICES1 = (

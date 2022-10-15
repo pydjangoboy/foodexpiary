@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = '__all__'
+        fields = ('food_type', 'food_title', 'photos', 'price', 'quantity', 'valid_from', 'valid_to')
 
     def __init__(self, *args, **kwargs):
         super(ItemForm, self).__init__(*args, **kwargs)

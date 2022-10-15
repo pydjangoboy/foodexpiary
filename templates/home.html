@@ -72,6 +72,7 @@
             <thead>
             <tr>
                 <th scope="col">Photos</th>
+                <th scope="col">User </th>
                 <th scope="col">Item Type</th>
                 <th scope="col">Item Name</th>
                 <th scope="col">Price</th>
@@ -83,11 +84,10 @@
             </tr>
             </thead>
             <tbody class="res">
-
-
             {% for item in items %}
                 <tr>
                     <td><img src="{{ item.photos.url }}" class="img" alt=""></td>
+                    <td>{{ user.username }}</td>
                     <td>{{ item.food_type }}</td>
                     <td>{{ item.food_title }} </td>
                     <td>{{ item.price }}</td>
@@ -113,13 +113,18 @@
                     <td colspan="12" class="text-center bg-warning">No data...!!!</td>
                 </tr>
             {% endfor %}
-
-
             </tr>
 
 
             </tbody>
         </table>
     </div>
+
+{#    <script>#}
+{#    var name = "{{ user.username }}";#}
+{#    document.getElementById("me").value#}
+{#        = name;#}
+{#    </script>#}
+
 
 {% endblock %}
